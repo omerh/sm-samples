@@ -1,0 +1,8 @@
+boto3
+sagemaker
+# 'sagemaker[local]'
+tensorflow
+numpy
+keras
+pandas
+sklearn
