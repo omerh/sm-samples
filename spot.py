@@ -1,4 +1,3 @@
-# c_role = 'arn:aws:iam::910416587115:role/SageMaker-Role-Full'
 
 import sagemaker
 from sagemaker.tensorflow import TensorFlow
@@ -16,9 +15,8 @@ tensorflow_estimator = TensorFlow(
     instance_type=train_instance_type,
     instance_count=1,
     hyperparameters=hyperparameters,
-    # role=sagemaker.get_execution_role(),
-    role='arn:aws:iam::910416587115:role/SageMaker-Role-Full',
-    base_job_name=project_name,
+    role=sagemaker.get_execution_role(),
+    base_job_name=f"{project_name}-spot",
     framework_version='2.8.0',
     py_version='py39',
     # Managed Spot training
