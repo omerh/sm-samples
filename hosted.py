@@ -4,11 +4,11 @@ import sagemaker
 from sagemaker.tensorflow import TensorFlow
 
 project_name = 'tensorflow-project-A1'
-hyperparameters = {'epochs': 70, 'batch_size': 128, 'learning_rate': 0.01}
+hyperparameters = {'epochs': 120, 'batch_size': 64, 'learning_rate': 0.01}
 
 sess = sagemaker.session.Session()
 bucket = sess.default_bucket()
-train_instance_type = 'ml.c5.xlarge'
+train_instance_type = 'ml.g4dn.xlarge'
 
 tensorflow_estimator = TensorFlow(
     source_dir='code',
@@ -23,4 +23,4 @@ tensorflow_estimator = TensorFlow(
 
 inputs = {'train': f's3://{bucket}/{project_name}/train', 'test': f's3://{bucket}/{project_name}/test'}
 
-tensorflow_estimator.fit(inputs)
+tensorflow_estimator.fit(inputs,logs=False)

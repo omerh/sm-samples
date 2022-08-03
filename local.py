@@ -3,7 +3,7 @@
 from sagemaker.tensorflow import TensorFlow
 
 project_name = 'tensorflow-project-A1'
-hyperparameters = {'epochs': 70, 'batch_size': 128, 'learning_rate': 0.01}
+hyperparameters = {'epochs': 700, 'batch_size': 128, 'learning_rate': 0.01}
 
 DUMMY_IAM_ROLE = 'arn:aws:iam::111111111111:role/service-role/AmazonSageMaker-ExecutionRole-20200101T000001'
 

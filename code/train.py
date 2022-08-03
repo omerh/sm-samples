@@ -1,8 +1,16 @@
 import os
+import argparse
 import tensorflow as tf
 from utils import prepare_fs, load_dataset, save_dataset_local, get_train_data, get_test_data, install_package
 from processing import preprocessing
 
+
+def parse_args():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--epochs', type=int, default=1)
+    parser.add_argument('--batch_size', type=int, default=64)
+    parser.add_argument('--learning_rate', type=float, default=0.1)
+    return parser.parse_known_args()
 
 def get_model():
     inputs = tf.keras.Input(shape=(13,))
@@ -18,7 +26,7 @@ def score_model(model, test_dir):
     print("\nTest MSE :", scores)
 
 
-def start():
+def start(_batch_size, _epochs, _learning_rate):
     print("Starting Training script...")
     print("Tensorflow version {}".format(tf.__version__))
     data_dir, raw_dir, train_dir, test_dir = prepare_fs()
@@ -31,9 +39,9 @@ def start():
     # Training parameters
     device = '/cpu:0'
     print(device)
-    batch_size = 128
-    epochs = 80
-    learning_rate = 0.01
+    batch_size = _batch_size
+    epochs = _epochs
+    learning_rate = _learning_rate
     print('batch_size = {}, epochs = {}, learning rate = {}'.format(batch_size, epochs, learning_rate))
 
     # Run training
@@ -57,6 +65,11 @@ if __name__ == "__main__":
     if os.environ.get("SM_HOSTS") is None:
         os.environ["SM_MODEL_DIR"] = "./model"
 
-    start()
+    args, _ = parse_args()
+    batch_size = args.batch_size
+    epochs = args.epochs
+    learning_rate = args.learning_rate
+    
+    start(batch_size, epochs, learning_rate)
     # model = start()
     # score_model(model, '../data/test/')
