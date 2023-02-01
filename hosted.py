@@ -19,7 +19,9 @@ tensorflow_estimator = TensorFlow(
     role=sagemaker.get_execution_role(),
     base_job_name=project_name,
     framework_version='2.8.0',
-    py_version='py39')
+    py_version='py39'
+    # container_log_level='debug'
+    )
 
 inputs = {'train': f's3://{bucket}/{project_name}/train', 'test': f's3://{bucket}/{project_name}/test'}
 
